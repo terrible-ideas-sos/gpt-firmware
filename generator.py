@@ -1,6 +1,6 @@
 import openai
 
-openai.ChatCompletion.create(
+text = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
         {"role": "system", "content": "You are a helpful assistant."},
@@ -10,3 +10,4 @@ openai.ChatCompletion.create(
     ]
 )
 
+print(text)

@@ -18,7 +18,9 @@ Then you can add files to the project (either the .ino main file or
 C++ header files)
 """
 sketch += Ino("""
-    #include "hello.h"
+    void hello() {
+        Serial.println("test");
+    }
 
 
     void setup() {
@@ -31,11 +33,6 @@ sketch += Ino("""
     }
 """)
 
-sketch += ("hello.h", """
-    void hello() {
-        Serial.println("hello");
-    }
-""")
 
 
 """
@@ -43,23 +40,13 @@ Compile sketch for Arduino Nano 33 BLE board.
 The board you target must appear in the `arduino-cli board listall` command.
 If you know the FQBN (Fully Qualified Board Name), you can use that too.
 """
-if sketch.compile(board='Nano 33 BLE').is_successful:
+if sketch.compile(board='Mega 2560').is_successful:
     print('Log', sketch.output)
     print('Sketch stats', sketch.stats)
 else:
     print('ERROR', sketch.output)
 
 
-"""
-You can specify the exact port
-"""
-sketch.upload(port='/dev/ttyUSB0')
-
-"""
-Or even part of it.
-The library will look for the best match.
-"""
-sketch.upload(port='ttyUSB')
-sketch.upload(port='/dev/cu.usbmodem')
+sketch.upload(port='/dev/cu.usbserial-14430')
 
 print(sketch.output)

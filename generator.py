@@ -28,8 +28,7 @@ def get_code_from_openai(completion):
   code = extract_code_block_from_text(message)
   return code
 
-
-def generate_firmware_and_flash(manifest, objective):
+def generate_prompt(manifest, objective):
   print("Getting ChatGPT API response...")
 
   prompt = """Write an arduino sketch with Makeblock.
@@ -38,12 +37,14 @@ def generate_firmware_and_flash(manifest, objective):
 
 The objective of the arduino is: {objective}"""
   prompt = prompt.format(manifest=manifest,objective=objective)
+  return prompt
 
+def generate_firmware_and_flash(manifest, objective):
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
           {"role": "system", "content": "You are a helpful assistant."},
-          {"role": "user", "content": prompt}
+          {"role": "user", "content": generate_prompt(manifest, objective)}
       ]
   )
 

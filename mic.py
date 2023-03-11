@@ -8,6 +8,7 @@ import os
 import threading
 import torch
 import numpy as np
+from generator import generate_firmware_and_flash, simple_serial_start
 
 
 def main():
@@ -32,9 +33,14 @@ def main():
                      args=(audio_queue, result_queue, audio_model, english, verbose, save_file))
     record_audio_thread.start()
     transcribe_forever_thread.start()
-    print(result_queue.get())
+    objective = result_queue.get()
     record_audio_thread.join()
     transcribe_forever_thread.join()
+
+    print("Objective: " + objective)
+    generate_firmware_and_flash(objective)
+    simple_serial_start()
+
 
 
 def record_audio(audio_queue, energy, pause, dynamic_energy, save_file, temp_dir):
@@ -45,7 +51,7 @@ def record_audio(audio_queue, energy, pause, dynamic_energy, save_file, temp_dir
     r.dynamic_energy_threshold = dynamic_energy
 
     with sr.Microphone(sample_rate=16000) as source:
-        print("Say something!")
+        print("State objective for the arduino!")
         i = 0
         #get and save audio to wav file
         audio = r.listen(source)

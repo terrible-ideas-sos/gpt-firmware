@@ -6,8 +6,9 @@ if __name__ == "__main__":
 Use 115200 baud rate. 
 Use Makeblock Library SDK.  
 For the main include, use #include <MeMCore.h>, instead of #include <MeOrion.h>
-Left motor attached to port 1. Going forward is positive value.
-Right motor attached to port 2. Going forward is negative value.
+Left motor attached to M1. Going forward is positive value.
+Right motor attached to M2. Going forward is negative value.
+Use 250 as the speed.
 """
 
   generate_firmware_and_flash(manifest, "Make wheels spin in the same direction")

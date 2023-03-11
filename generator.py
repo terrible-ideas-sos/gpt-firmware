@@ -28,18 +28,15 @@ def get_code_from_openai(completion):
   return code
 
 
-def generate_firmware_and_flash(objective):
+def generate_firmware_and_flash(manifest, objective):
   print("Getting ChatGPT API response...")
 
   prompt = """Write an arduino sketch.
 
-We have hc-sr04 sensor.
-We use A0 as the trigger pin
-We use A1 as echo pin.
-We use 115200 baud rate.
+{manifest}
 
 The objective of the arduino is: {objective}"""
-  prompt = prompt.format(objective=objective)
+  prompt = prompt.format(manifest=manifest,objective=objective)
 
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
@@ -62,5 +59,10 @@ def simple_serial_start():
 
 if __name__ == "__main__":
 
-  generate_firmware_and_flash("Output hello world every second on new line.")
+  manifest =   """Use 115200 baud rate. 
+  Measure the brightness using a photosensor connected to pin A7 as analog input. 
+  Use an LED connected to pin 3 as analog output. 
+  """
+
+  generate_firmware_and_flash(manifest, "Start by turning the LED off. Then slowly increase the LED output every 250ms until the photosensor measures 750. When reaching 750 keep the led on. Output the led value and photosensor value on the serial port everytime the led value is increased.")
   simple_serial_start()

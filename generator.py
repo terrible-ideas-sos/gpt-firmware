@@ -2,6 +2,7 @@ import openai
 import os
 from dotenv import load_dotenv
 from arduinointerface import flashSketch, startHandlingSerialData
+from util import say
 
 load_dotenv()
 
@@ -14,7 +15,7 @@ def extract_code_block_from_text(text):
       code = text[start + 3:end]
       # check if first line is "arduino", "c" or "c++"
       # case insensitve
-      print("code",code)
+      # print("code",code)
       if code.splitlines()[0].lower() in ["arduino", "c", "c++", "cpp"]:
           # remove first line
           code = "\n".join(code.splitlines()[1:])
@@ -29,7 +30,7 @@ def get_code_from_openai(completion):
   return code
 
 def generate_prompt(manifest, objective):
-  print("Getting ChatGPT API response...")
+  say("Hmm.. Let me see how you would do that...")
 
   prompt = """Write an arduino sketch with Makeblock.
 
@@ -48,7 +49,9 @@ def generate_firmware_and_flash(manifest, objective):
       ]
   )
 
+  say("How does this code look like?")
   print(get_code_from_openai(completion))
+  say("Let's see if it compiles..")
 
   flashSketch(get_code_from_openai(completion))
 

@@ -1,6 +1,7 @@
 import openai
 from generator import generate_prompt,get_code_from_openai
 from arduinointerface import flashSketch
+from util import say
 
 messages = [{"role": "system", "content": "You are a helpful assistant."}]
 
@@ -19,22 +20,33 @@ Use 250 as the speed.
 """
 fix_error = ""
 
-baseline_objective = input("Set the baseline objective: ")
+say("What do you want me to do?")
+baseline_objective = input("")
 messages.append({ "role": "user", "content": generate_prompt(manifest, baseline_objective) })
 
-print(messages)
+# print(messages)
 completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
 code = get_code_from_openai(completion)
+
+say("How does this code look like?")
+print(code)
+say("Let's see if it compiles..")
+
 error_message = flashSketch(code)
 if error_message != "":
+    say("Oh no. I did something wrong. :(")
+    say("Let me try to fix this..")
     fix_error = 'fix error: "' + error_message + '"'
+
 bot_message = completion["choices"][0]["message"]
 messages.append(bot_message)
+
 
 while True:
     changes = ""
     if fix_error == "":
-        changes = input("What should be changed: ")
+        say("Is there anything I should change?")
+        changes = input("")
     else :
         changes = fix_error
         fix_error = ""
@@ -46,5 +58,7 @@ while True:
     messages.append(bot_message)
     error_message = flashSketch(code)
     if error_message != "":
+        say("Oh no. I did something wrong. :(")
+        say("Let me try to fix this..")
         fix_error = 'fix error: "' + error_message + '"'
 

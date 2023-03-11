@@ -2,3 +2,4 @@ openai
 everywhereml>=0.2.2
 pyserial
 python-dotenv
+termcolor

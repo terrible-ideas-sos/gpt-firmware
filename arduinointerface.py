@@ -5,6 +5,7 @@ from threading import Timer
 import serial
 import time
 import os
+from util import say
 
 load_dotenv()
 
@@ -26,14 +27,15 @@ def flashSketch(sketchcode, sketechname=conf_sketchname, boardtype=conf_board, p
     # Compile sketch for configured board
     error_message = ""
     if sketch.compile(board=boardtype).is_successful:
-        print('Log', sketch.output)
-        print('Sketch stats', sketch.stats)
+         # Upload it to the configured port
+        say("That worked. Flashing robot...")
+        sketch.upload(port=portname)
+        # print('Sketch stats', sketch.stats)
     else:
         error_message = sketch.output
         print('ERROR', error_message)
 
-    # Upload it to the configured port
-    sketch.upload(port=portname)
+   
 
     print(sketch.output)
     return error_message

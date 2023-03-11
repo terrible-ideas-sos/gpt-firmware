@@ -30,7 +30,6 @@ messages.append(bot_message)
 
 while True:
     changes = input("What should be changed: ")
-    print("You entered: " + changes)
     messages.append({ "role": "user", "content": "make changes: " + changes })
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
     bot_message = completion["choices"][0]["message"]

@@ -7,7 +7,7 @@ import time
 # Configuration
 conf_sketchname = 'terribleSketch'
 conf_board = 'Mega 2560'
-conf_serialport = '/dev/cu.usbserial-14240'
+conf_serialport = '/dev/cu.usbserial-1230'
 conf_baudrate = 115200
 
 
@@ -95,13 +95,14 @@ def serialDataHandler(data):
     # Simply outputs what it reads at the serial port
     print(data, end = '')
 
-# Actual code
-print("Flashing Arduino Sketch..")
-flashSketch(code)
+if __name__ == "__main__":
+    # Actual code
+    print("Flashing Arduino Sketch..")
+    flashSketch(code)
 
-print("Reading Serial Port for 3 seconds:")
-startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3)
+    print("Reading Serial Port for 3 seconds:")
+    startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3)
 
-#
-#######################
-#######################
+# #
+# #######################
+# #######################

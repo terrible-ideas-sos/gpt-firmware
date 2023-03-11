@@ -7,7 +7,7 @@ import time
 # Configuration
 conf_sketchname = 'terribleSketch'
 conf_board = 'Mega 2560'
-conf_serialport = '/dev/cu.usbserial-1230'
+conf_serialport = '/dev/cu.usbserial-14240'
 conf_baudrate = 115200
 
 
@@ -33,14 +33,13 @@ def flashSketch(sketchcode, sketechname=conf_sketchname, boardtype=conf_board, p
 
 # Handle serial output of arduino
 serialport_connected = False
-serial_port = serial.Serial(conf_serialport, conf_baudrate, timeout=0)
+_serial_port = None
 _serialPortHandlerThread = None
 _stopReadingSerialPort = False
 
 def _read_from_serialport(ser, callback):
-    global serialport_connected, _stopReadingSerialPort
+    global serialport_connected, _stopReadingSerialPort, serialport_connected
     while not serialport_connected and not _stopReadingSerialPort:
-        #serin = ser.read()
         serialport_connected = True
 
         while True and not _stopReadingSerialPort:
@@ -49,53 +48,63 @@ def _read_from_serialport(ser, callback):
             callback(reading)
 
 def startHandlingSerialData(dataHandlerCallback, stopAfterTime_secs = None):
-    global _serialPortHandlerThread, _stopReadingSerialPort
-    if _serialPortHandlerThread == None:
-        _stopReadingSerialPort = False
-        _serialPortHandlerThread = threading.Thread(target=_read_from_serialport, args=(serial_port, dataHandlerCallback,))
-        _serialPortHandlerThread.start()
+    global _serialPortHandlerThread, _stopReadingSerialPort, _serial_port, serialport_connected
 
-        if (stopAfterTime_secs is not None):
-            st = Timer(stopAfterTime_secs, stopHandlingSerialData, ())
-            st.start()
+    if _serialPortHandlerThread == None:
+        try:
+            _serial_port = serial.Serial(conf_serialport, conf_baudrate, timeout=0)
+
+            _stopReadingSerialPort = False
+            serialport_connected = False
+            _serialPortHandlerThread = threading.Thread(target=_read_from_serialport, args=(_serial_port, dataHandlerCallback,))
+            _serialPortHandlerThread.start()
+
+            if (stopAfterTime_secs is not None):
+                st = Timer(stopAfterTime_secs, stopHandlingSerialData, ())
+                st.start()
+        except:
+            print("Serial Exception")
+
 
     else:
         print("ERROR", "Active serial data handler thread.")
         print("You may want to call stopHandlingSerialData before calling startHandlingSerialData again.")
     
 def stopHandlingSerialData():
-    global _serialPortHandlerThread, _stopReadingSerialPort
+    global _serialPortHandlerThread, _stopReadingSerialPort, _serial_port
     _stopReadingSerialPort = True # Run out of serial port reading loop
     _serialPortHandlerThread.join() # Wait thread to finish
+
+    _serial_port.close()
     _serialPortHandlerThread = None # Clean up
 
-#######################
-#######################
-# EXAMPLE TEST
-# Flashes an arduino sketch that prints meow every second, then reads it out at the serial port
-
-code = """
-        void hello() {
-            Serial.println("meow");
-        }
-
-
-        void setup() {
-            Serial.begin(115200);
-        }
-
-        void loop() {
-            hello();
-            delay(1000);
-        }
-    """
-
-# Handler that can passed as callback to receive serial data async
-def serialDataHandler(data):
-    # Simply outputs what it reads at the serial port
-    print(data, end = '')
-
 if __name__ == "__main__":
+    #######################
+    #######################
+    # EXAMPLE TEST
+    # Flashes an arduino sketch that prints meow every second, then reads it out at the serial port
+
+    code = """
+            void hello() {
+                Serial.println("meow");
+            }
+
+
+            void setup() {
+                Serial.begin(115200);
+            }
+
+            void loop() {
+                hello();
+                delay(1000);
+            }
+        """
+    
+    # Handler that can passed as callback to receive serial data async
+    def serialDataHandler(data):
+        # Simply outputs what it reads at the serial port
+        print(data, end = '')
+    
     # Actual code
     print("Flashing Arduino Sketch..")
     flashSketch(code)
@@ -103,6 +112,7 @@ if __name__ == "__main__":
     print("Reading Serial Port for 3 seconds:")
     startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3)
 
-# #
-# #######################
-# #######################
+
+    # #
+    # #######################
+    # #######################

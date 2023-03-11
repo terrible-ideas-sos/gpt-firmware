@@ -22,10 +22,11 @@ completion = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write an arduino sketch that uses hc-sr04 ultrasonic sensor and provide the distance of the senor as output in the serial port. use 115200 baud rate."}
+        {"role": "user", "content": "Write an arduino sketch that uses hc-sr04 ultrasonic sensor and provide the distance of the senor as output in the serial port. use 115200 baud rate. Use A0 as the trigger pin. Use A1 as echo pin."}
     ]
 )
 
+print("Getting ChatGPT API response...")
 print(get_code_from_openai(completion))
 
 flashSketch(get_code_from_openai(completion))

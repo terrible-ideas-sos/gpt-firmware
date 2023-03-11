@@ -15,5 +15,5 @@ Right motor attached to `M2`. Going forward is negative value.
 Use 250 as the speed.
 """
 
-  generate_firmware_and_flash(manifest, "Make wheels spin in the same direction. Display a smiley face.")
+  generate_firmware_and_flash(manifest, "Make wheels spin in the same direction. Display eyes on the led matrix.")
   simple_serial_start()

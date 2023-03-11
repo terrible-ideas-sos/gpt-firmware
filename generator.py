@@ -31,7 +31,8 @@ def generate_firmware_and_flash(objective):
 
 We have hc-sr04 sensor.
 We use A0 as the trigger pin
-We Use A1 as echo pin.
+We use A1 as echo pin.
+We use 115200 baud rate.
 
 The objective of the arduino is to '{objective}'"""
   prompt = prompt.format(objective=objective)

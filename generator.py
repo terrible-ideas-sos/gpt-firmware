@@ -56,5 +56,5 @@ def serialDataHandler(data):
 def simple_serial_start():
   startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3000)
 
-generate_firmware_and_flash("output hello world every 2 seconds on new line")
+generate_firmware_and_flash("output hello world every second on new line")
 simple_serial_start()

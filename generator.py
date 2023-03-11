@@ -29,7 +29,7 @@ completion = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write an arduino sketch that uses hc-sr04 ultrasonic sensor and provide the distance of the senor as output in the serial port. use 115200 baud rate. Use A0 as the trigger pin. Use A1 as echo pin."}
+        {"role": "user", "content": "Use 115200 baud rate. Measure the brightness using a photosensor connected to pin A7 as analog input. Use an LED connected to pin A8 as analog output. Write an arduino sketch which sets the LED brightness to zero and then increases the LEDs brightness by 1 every 250 milliseconds until the photosensor reads a brightness level of 700. Always print out the brightness at the serial port and the led output value."}
     ]
 )
 
@@ -41,4 +41,4 @@ def serialDataHandler(data):
     # Simply outputs what it reads at the serial port
     print(data, end = '')
 
-startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3000)
+startHandlingSerialData(serialDataHandler)

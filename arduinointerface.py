@@ -1,9 +1,12 @@
 from everywhereml.arduino import Sketch, Ino, H
 import threading
+from dotenv import load_dotenv
 from threading import Timer
 import serial
 import time
 import os
+
+load_dotenv()
 
 # Configuration
 conf_sketchname = 'terribleSketch'

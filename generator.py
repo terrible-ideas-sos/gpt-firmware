@@ -15,7 +15,7 @@ def extract_code_block_from_text(text):
       # check if first line is "arduino", "c" or "c++"
       # case insensitve
       print("code",code)
-      if code.splitlines()[0].lower() in ["arduino", "c", "c++"]:
+      if code.splitlines()[0].lower() in ["arduino", "c", "c++", "cpp"]:
           # remove first line
           code = "\n".join(code.splitlines()[1:])
     except Exception as e:

@@ -1,13 +1,17 @@
 from everywhereml.arduino import Sketch, Ino, H
 import threading
+from dotenv import load_dotenv
 from threading import Timer
 import serial
 import time
+import os
+
+load_dotenv()
 
 # Configuration
 conf_sketchname = 'terribleSketch'
 conf_board = 'Mega 2560'
-conf_serialport = '/dev/cu.usbserial-14240'
+conf_serialport = os.getenv("SERIAL_PORT")
 conf_baudrate = 115200
 
 

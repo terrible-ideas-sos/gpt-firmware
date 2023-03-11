@@ -46,5 +46,5 @@ while True:
     messages.append(bot_message)
     error_message = flashSketch(code)
     if error_message != "":
-        fix_error = "fix error: " + error_message
+        fix_error = 'fix error: "' + error_message + '"'
 

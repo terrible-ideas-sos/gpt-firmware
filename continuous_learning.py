@@ -17,6 +17,7 @@ Right motor attached to `M2`. Going forward is negative value.
 Use `void run(int speed)` method in MeDCMotor.
 Use 250 as the speed.
 """
+fix_error = ""
 
 baseline_objective = input("Set the baseline objective: ")
 messages.append({ "role": "user", "content": generate_prompt(manifest, baseline_objective) })
@@ -24,15 +25,26 @@ messages.append({ "role": "user", "content": generate_prompt(manifest, baseline_
 print(messages)
 completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
 code = get_code_from_openai(completion)
-flashSketch(code)
+error_message = flashSketch(code)
+if error_message != "":
+    fix_error = "fix error: " + error_message
 bot_message = completion["choices"][0]["message"]
 messages.append(bot_message)
 
 while True:
-    changes = input("What should be changed: ")
+    changes = ""
+    if fix_error == "":
+        changes = input("What should be changed: ")
+    else :
+        changes = fix_error
+        fix_error = ""
+
     messages.append({ "role": "user", "content": "make changes: " + changes })
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
     bot_message = completion["choices"][0]["message"]
     code = get_code_from_openai(completion)
-    flashSketch(code)
     messages.append(bot_message)
+    error_message = flashSketch(code)
+    if error_message != "":
+        fix_error = "fix error: " + error_message
+

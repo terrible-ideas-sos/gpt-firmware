@@ -24,16 +24,19 @@ def flashSketch(sketchcode, sketechname=conf_sketchname, boardtype=conf_board, p
     sketch += Ino(sketchcode)
 
     # Compile sketch for configured board
+    error_message = ""
     if sketch.compile(board=boardtype).is_successful:
         print('Log', sketch.output)
         print('Sketch stats', sketch.stats)
     else:
-        print('ERROR', sketch.output)
+        error_message = sketch.output
+        print('ERROR', error_message)
 
     # Upload it to the configured port
     sketch.upload(port=portname)
 
     print(sketch.output)
+    return error_message
 
 # Handle serial output of arduino
 serialport_connected = False

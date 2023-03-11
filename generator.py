@@ -17,6 +17,7 @@ def get_code_from_openai(completion):
   code = extract_code_block_from_text(message)
   return code
 
+print("Getting ChatGPT API response...")
 
 completion = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
@@ -26,7 +27,6 @@ completion = openai.ChatCompletion.create(
     ]
 )
 
-print("Getting ChatGPT API response...")
 print(get_code_from_openai(completion))
 
 flashSketch(get_code_from_openai(completion))

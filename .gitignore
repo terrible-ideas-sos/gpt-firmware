@@ -4,3 +4,4 @@ venv
 *.pyo
 Makeblock-Libraries-master
 .DS_Store
+flasher.zip

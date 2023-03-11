@@ -23,22 +23,37 @@ def get_code_from_openai(completion):
   code = extract_code_block_from_text(message)
   return code
 
-print("Getting ChatGPT API response...")
 
-completion = openai.ChatCompletion.create(
-  model="gpt-3.5-turbo",
-  messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write an arduino sketch that uses hc-sr04 ultrasonic sensor and provide the distance of the senor as output in the serial port. use 115200 baud rate. Use A0 as the trigger pin. Use A1 as echo pin."}
-    ]
-)
+def generate_firmware_and_flash(objective):
+  print("Getting ChatGPT API response...")
 
-print(get_code_from_openai(completion))
+  prompt = """Write an arduino sketch.
 
-flashSketch(get_code_from_openai(completion))
+We have hc-sr04 sensor.
+We use A0 as the trigger pin
+We Use A1 as echo pin.
+
+The objective of the arduino is to '{objective}'"""
+  prompt = prompt.format(objective=objective)
+
+  completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+          {"role": "system", "content": "You are a helpful assistant."},
+          {"role": "user", "content": prompt}
+      ]
+  )
+
+  print(get_code_from_openai(completion))
+
+  flashSketch(get_code_from_openai(completion))
 
 def serialDataHandler(data):
     # Simply outputs what it reads at the serial port
     print(data, end = '')
 
-startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3000)
+def simple_serial_start():
+  startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3000)
+
+generate_firmware_and_flash("measure distance")
+simple_serial_start()

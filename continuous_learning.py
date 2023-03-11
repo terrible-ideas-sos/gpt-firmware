@@ -34,7 +34,6 @@ while True:
     messages.append({ "role": "user", "content": changes })
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
     bot_message = completion["choices"][0]["message"]
+    code = get_code_from_openai(completion)
+    flashSketch(code)
     messages.append(bot_message)
-    print(bot_message)
-
-    # Do something with the user's input here...

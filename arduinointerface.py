@@ -3,11 +3,12 @@ import threading
 from threading import Timer
 import serial
 import time
+import os
 
 # Configuration
 conf_sketchname = 'terribleSketch'
 conf_board = 'Mega 2560'
-conf_serialport = '/dev/cu.usbserial-1230'
+conf_serialport = os.getenv("SERIAL_PORT")
 conf_baudrate = 115200
 
 

@@ -34,7 +34,7 @@ We use A0 as the trigger pin
 We use A1 as echo pin.
 We use 115200 baud rate.
 
-The objective of the arduino is to '{objective}'"""
+The objective of the arduino is: {objective}"""
   prompt = prompt.format(objective=objective)
 
   completion = openai.ChatCompletion.create(
@@ -56,5 +56,7 @@ def serialDataHandler(data):
 def simple_serial_start():
   startHandlingSerialData(serialDataHandler, stopAfterTime_secs=3000)
 
-generate_firmware_and_flash("output hello world every second on new line")
-simple_serial_start()
+if __name__ == "__main__":
+
+  generate_firmware_and_flash("Output hello world every second on new line.")
+  simple_serial_start()

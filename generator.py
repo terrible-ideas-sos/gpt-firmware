@@ -6,7 +6,18 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-text = openai.ChatCompletion.create(
+def extract_code_block_from_text(text):
+    start = text.find("```")
+    end = text.find("```", start + 3)
+    return text[start + 3:end]
+
+def get_code_from_openai(completion):
+  message = completion["choices"][0]["message"]["content"]
+  code = extract_code_block_from_text(message)
+  return code
+
+
+completion = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
         {"role": "system", "content": "You are a helpful assistant."},
@@ -14,13 +25,6 @@ text = openai.ChatCompletion.create(
     ]
 )
 
-print(text)
+print(completion)
 
-def extract_code_block_from_text(text):
-    start = text.find("```")
-    end = text.find("```", start + 3)
-    return text[start + 3:end]
-
-message = text["choices"][0]["message"]["content"]
-
-print(extract_code_block_from_text(message))
+print(get_code_from_openai(completion))

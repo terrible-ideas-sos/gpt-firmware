@@ -35,5 +35,6 @@ while True:
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
     bot_message = completion["choices"][0]["message"]
     messages.append(bot_message)
+    print(bot_message)
 
     # Do something with the user's input here...

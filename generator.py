@@ -1,6 +1,6 @@
 import openai
 import os
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -15,3 +15,12 @@ text = openai.ChatCompletion.create(
 )
 
 print(text)
+
+def extract_code_block_from_text(text):
+    start = text.find("```")
+    end = text.find("```", start + 3)
+    return text[start + 3:end]
+
+message = text["choices"][0]["message"]["content"]
+
+print(extract_code_block_from_text(message))

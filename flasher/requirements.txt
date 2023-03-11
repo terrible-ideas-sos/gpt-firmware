@@ -1,0 +1,4 @@
+everywhereml>=0.2.2
+pyserial
+Flask
+python-dotenv

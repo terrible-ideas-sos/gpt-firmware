@@ -31,7 +31,7 @@ def get_code_from_openai(completion):
 def generate_firmware_and_flash(manifest, objective):
   print("Getting ChatGPT API response...")
 
-  prompt = """Write an arduino sketch.
+  prompt = """Write an arduino sketch with the Makeblock library.
 
 {manifest}
 
@@ -60,9 +60,7 @@ def simple_serial_start():
 if __name__ == "__main__":
 
   manifest =   """Use 115200 baud rate. 
-  Measure the brightness using a photosensor connected to pin A7 as analog input. 
-  Use an LED connected to pin 3 as analog output. 
   """
 
-  generate_firmware_and_flash(manifest, "Start by turning the LED off. Then slowly increase the LED output every 250ms until the photosensor measures 750. When reaching 750 keep the led on. Output the led value and photosensor value on the serial port everytime the led value is increased.")
+  generate_firmware_and_flash(manifest, "Display a five on the seven segment display.")
   simple_serial_start()

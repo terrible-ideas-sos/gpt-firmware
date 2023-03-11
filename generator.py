@@ -17,7 +17,7 @@ def extract_code_block_from_text(text):
       print("code",code)
       if code.splitlines()[0].lower() in ["arduino", "c", "c++"]:
           # remove first line
-          code = code.splitlines()[1:].join("\n")
+          code = "\n".join(code.splitlines()[1:])
     except Exception as e:
       print('Error extracting code block from text: ', e)
       print("Text: ", text)

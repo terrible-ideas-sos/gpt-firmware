@@ -27,7 +27,7 @@ completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=message
 code = get_code_from_openai(completion)
 error_message = flashSketch(code)
 if error_message != "":
-    fix_error = "fix error: " + error_message
+    fix_error = 'fix error: "' + error_message + '"'
 bot_message = completion["choices"][0]["message"]
 messages.append(bot_message)
 

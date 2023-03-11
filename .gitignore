@@ -2,3 +2,5 @@ venv
 .env
 *.pyc
 *.pyo
+Makeblock-Libraries-master
+.DS_Store

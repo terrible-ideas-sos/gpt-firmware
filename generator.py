@@ -31,7 +31,7 @@ def get_code_from_openai(completion):
 def generate_firmware_and_flash(manifest, objective):
   print("Getting ChatGPT API response...")
 
-  prompt = """Write an arduino sketch with the Makeblock library.
+  prompt = """Write an arduino sketch with Makeblock.
 
 {manifest}
 
@@ -62,5 +62,5 @@ if __name__ == "__main__":
   manifest =   """Use 115200 baud rate. 
   """
 
-  generate_firmware_and_flash(manifest, "Display a five on the seven segment display.")
+  generate_firmware_and_flash(manifest, "Use the color sensor to sense the color and output the color via serial.")
   simple_serial_start()

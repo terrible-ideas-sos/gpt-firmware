@@ -22,6 +22,11 @@ Declare Servo clawservo;
 Declare int16_t clawservopin = port.pin1();
 Attach clawservo to clawservopin.
 
+Declare Servo flagservo;
+Declare int16_t flagservopin = port.pin2();
+Attach flagservo to flagservopin.
+The flagservo controls the flag.
+
 Declare MeUltrasonicSensor ultraSensor(PORT_3); 
 
 Going forward for the right motor is positive value.

@@ -10,7 +10,7 @@ This is exactly what our team did at the Terrible Ideas Hackathon 2023 (https://
 
 We used a Makeblock mBot (which basically uses an Arduino UNO as logic unit), attached a bunch of sensors and motors to it and asked ChatGPT to write code for us to perform simple tasks like: "Move forward and avoid obstacles."
 
-As with microcontroller boards like Arduino UNOs the possibilities are basically endless, ChatGPT cannot make the magic happen out of no where. Therefore we tell ChatGPT once what sensors and actuators are attached to which ports. But that is basically it! The rest is up to ChatGPT and it gets directly compiled and uploaded to the mBot.
+As with microcontroller boards like Arduino UNOs the possibilities are basically endless, ChatGPT cannot make the magic happen out of no where. Therefore we tell ChatGPT once what sensors and actuators are attached to which ports. But that is basically it! The rest is up to ChatGPT and the code gets directly compiled and uploaded to the mBot.
 
 We were impressive to see how ChatGPT could sometimes produce flawless code that does exactly what we want. However, many other times.. it does the job 80% right and then gets something totally wrong. Thats why we implemented two additional features:
 

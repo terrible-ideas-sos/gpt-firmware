@@ -4,17 +4,21 @@ if __name__ == "__main__":
 
   manifest =   """
 Use 115200 baud rate. 
+
 Use Makeblock Library SDK.  
-Use Makeblock LED matrix on Port 3.
-For the main include, use #include <MeMCore.h>, instead of #include <MeOrion.h>
-Use MeLEDMatrix class from the #include <MeLEDMatrix.h> for LED matrix.
-Use `void drawBitmap(int8_t x, int8_t y, uint8_t Bitmap_Width, uint8_t *Bitmap)` method in MeLEDMatrix.
-Use `void clearScreen()` method in MeLEDMatrix.
-Left motor attached to `M1`. Going forward is positive value.
-Right motor attached to `M2`. Going forward is negative value.
-Use `void run(int speed)` method in MeDCMotor.
-Use 250 as the speed.
+
+Declare MeDCMotor leftmotor(M1);
+Declare MeDCMotor rightmotor(M2);
+
+Declare MePort port(PORT_3)
+
+Declare Servo clawservo;
+Declare int16_t clawservopin = port.pin1();
+Attach clawservo to clawservopin.
+
+Declare MeUltrasonicSensor ultraSensor(PORT_5); 
+
 """
 
-  generate_firmware_and_flash(manifest, "Make wheels spin in the same direction. Display eyes on the led matrix.")
+  generate_firmware_and_flash(manifest, "move forward using the left motor until you sense a value smaller than 50 with the ultrasonic sensor.")
   simple_serial_start()

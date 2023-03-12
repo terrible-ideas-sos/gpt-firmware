@@ -12,7 +12,10 @@ def type_slowly(str):
     sys.stdout.write("\n")
 
 def system_speak(text):
-    os.system('say ' + text)
+    try:
+        os.system('say ' + text)
+    except:
+        pass
 
 
 def say(text):

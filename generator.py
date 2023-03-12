@@ -30,7 +30,7 @@ def get_code_from_openai(completion):
   return code
 
 def generate_prompt(manifest, objective):
-  say("Hmm.. Let me see how you would do that...")
+  say("Hmm.. Let me try to write the code for that...")
 
   prompt = """Write an arduino sketch with Makeblock.
 
@@ -49,7 +49,7 @@ def generate_firmware_and_flash(manifest, objective):
       ]
   )
 
-  say("How does this code look like?")
+  say("See what I came up with:")
   print(get_code_from_openai(completion))
   say("Let's see if it compiles..")
 

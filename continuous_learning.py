@@ -3,6 +3,7 @@ from generator import generate_prompt,get_code_from_openai
 from util import say
 import requests
 import json
+from arduinointerface import compileSketch
 
 messages = [{"role": "system", "content": "You are a helpful assistant."}]
 
@@ -41,16 +42,22 @@ print(code)
 say("Let's see if it compiles..")
 
 def flashSketch(code):
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    code_listing = code
-    response = requests.post(
-        "http://172.24.252.165:3000/flash", 
-        data=json.dumps({ "code_listing": code_listing }), 
-        headers=headers
-    )
-    return response
+
+    errormsg = compileSketch(code)
+
+    if errormsg == "":
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        code_listing = code
+        response = requests.post(
+            "http://172.24.252.165:3000/flash", 
+            data=json.dumps({ "code_listing": code_listing }), 
+            headers=headers
+        )
+
+    return errormsg
 
 error_message = flashSketch(code)
 if error_message != "":

@@ -1,4 +1,6 @@
 # ChatGPT firmware-flashing Arduino robot
+![IMG_4702](https://user-images.githubusercontent.com/2031472/224521842-18cb33e2-ca89-44d1-907d-dac636054761.jpg)
+![IMG_4701](https://user-images.githubusercontent.com/2031472/224521844-2a5644e5-27d3-4708-8fd6-3fe7e24d086d.jpg)
 
 
 ## Sample ChatGPT output

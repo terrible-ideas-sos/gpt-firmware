@@ -5,7 +5,7 @@
 ## Introduction
 
 Why write the Arduino code to control a robot when you can ask ChatGPT to do it for you?
-And this is exactly what our team did at the Terrible Ideas Hackathon 2023 (https://terriblehack.nz). 
+This is exactly what our team did at the Terrible Ideas Hackathon 2023 (https://terriblehack.nz). 
 
 
 We used a Makeblock mBot (which basically uses an Arduino UNO as logic unit), attached a bunch of sensors and motors to it and asked ChatGPT to write code for us to perform simple tasks like: "Move forward and avoid obstacles."

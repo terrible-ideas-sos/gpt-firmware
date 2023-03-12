@@ -77,7 +77,7 @@ def startHandlingSerialData(dataHandlerCallback, stopAfterTime_secs = None):
     else:
         print("ERROR", "Active serial data handler thread.")
         print("You may want to call stopHandlingSerialData before calling startHandlingSerialData again.")
-    
+
 def stopHandlingSerialData():
     global _serialPortHandlerThread, _stopReadingSerialPort, _serial_port
     _stopReadingSerialPort = True # Run out of serial port reading loop
@@ -101,7 +101,7 @@ def code():
     # do something with the code listing
     print("Code listing: ", code_listing)
 
-    if _serialPortHandlerThread != None: 
+    if _serialPortHandlerThread != None:
         stopHandlingSerialData()
     flash_sketch(code_listing)
     startHandlingSerialData(serialDataHandler)
@@ -109,4 +109,4 @@ def code():
     return jsonify({"status": "success", "code_listing": code_listing})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3000)
+    app.run(debug=False, port=3000, host='0.0.0.0')

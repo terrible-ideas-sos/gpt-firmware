@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # Configuration
 conf_sketch_name = 'terribleSketch'
-conf_board = 'Arduino Uno'
+conf_board = 'Mega 2560'
 conf_port = os.getenv("SERIAL_PORT")
 conf_baudrate = 115200
 

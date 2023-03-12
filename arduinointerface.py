@@ -11,7 +11,7 @@ load_dotenv()
 
 # Configuration
 conf_sketchname = 'terribleSketch'
-conf_board = 'Mega 2560'
+conf_board = 'Arduino Uno'
 conf_serialport = os.getenv("SERIAL_PORT")
 conf_baudrate = 115200
 

@@ -15,6 +15,28 @@ conf_board = 'Arduino Uno'
 conf_serialport = os.getenv("SERIAL_PORT")
 conf_baudrate = 115200
 
+def compileSketch(sketchcode, sketechname=conf_sketchname, boardtype=conf_board, portname=conf_serialport):
+    # Create a sketch with the configured sketch name
+    sketch = Sketch(name=sketechname, folder=":system:")
+
+    # Add code to sketch
+    sketch += Ino(sketchcode)
+
+    # Compile sketch for configured board
+    error_message = ""
+    if sketch.compile(board=boardtype).is_successful:
+         # Upload it to the configured port
+        print(sketch.output)
+
+        return ""
+        # print('Sketch stats', sketch.stats)
+    else:
+        error_message = sketch.output
+        print('ERROR', error_message)
+
+        print(sketch.output)
+
+        return error_message
 
 # Flash an arduino board with code, optionally specify board type, sketchname and serial port
 def flashSketch(sketchcode, sketechname=conf_sketchname, boardtype=conf_board, portname=conf_serialport):

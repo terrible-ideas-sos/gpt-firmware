@@ -11,18 +11,18 @@ manifest =   """
 Use 115200 baud rate. 
 
 Use Makeblock Library SDK.  
-For the main include, use #include <MeMCore.h>, instead of #include <MeOrion.h>
+For the main include, use #include <MeMCore.h>.
 
 Declare MeDCMotor leftmotor(M1);
 Declare MeDCMotor rightmotor(M2);
 
-Declare MePort port(PORT_3)
+Declare MePort port(PORT_1)
 
 Declare Servo clawservo;
 Declare int16_t clawservopin = port.pin1();
 Attach clawservo to clawservopin.
 
-Declare MeUltrasonicSensor ultraSensor(PORT_5); 
+Declare MeUltrasonicSensor ultraSensor(PORT_3); 
 
 Going forward for the right motor is positive value.
 Going forward for the left motor is negative value.
@@ -37,7 +37,7 @@ messages.append({ "role": "user", "content": generate_prompt(manifest, baseline_
 completion = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=messages)
 code = get_code_from_openai(completion)
 
-say("See what I have come up with:")
+say("This is what I have come up with:")
 print(code)
 say("Let's see if it compiles..")
 
@@ -46,7 +46,7 @@ def flashSketch(code):
     errormsg = compileSketch(code)
 
     if errormsg == "":
-
+        say("Looks good. Lets flash and run it.")
         headers = {
             'Content-Type': 'application/json'
         }
